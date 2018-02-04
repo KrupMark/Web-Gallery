@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
+var Mainpage = 'index.html';
 
 // Login data
 loginUser = 'albert';
@@ -18,9 +19,9 @@ router.use(function (req,res,next) {
   next();
 });
 
-// Index = /
-router.get("/",function(req,res){
-  res.sendFile(path + "index.html");
+// Index or Main = /
+router.get("/",function(req,res) {
+  res.sendFile(path + Mainpage);
 });
 
 // Login = /login
@@ -40,6 +41,7 @@ app.post('/login', function (req, res) {
   console.log(post);
   if (post.user === loginUser && post.password === loginPasswd) {
     // req.session.user_id = user_id;
+    Mainpage = 'main.html';
     res.redirect('/');
   } else {
     res.send('Rossz felhasználónév/jelszó');
@@ -53,16 +55,19 @@ app.post('/reg', function (req, res) {
   dataUsername = post.user;
   dataPasswd = post.password;
   dataEmail = post.email;
-  dataConfEmail = post. confEmail;
+  dataConfEmail = post.confEmail;
   if (post.email === post.confEmail) {
-    console.log("Username: "+dataUsername);
-    console.log("Password: "+dataPasswd);
-    console.log("E-mail: "+dataEmail);
     res.send('Sikeres regisztráció!');
   } else {
     console.log("E-mail address error!");
     res.send('Nem egyezik az e-mail cím!');
   }
+});
+
+// Logout
+router.get("/logout",function(req,res){
+  Mainpage = 'index.html';
+  res.redirect('/');
 });
 
 app.use("/",router);
