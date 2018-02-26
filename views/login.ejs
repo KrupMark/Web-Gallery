@@ -37,10 +37,15 @@
       </div>
     </nav>
     <div class="container">
+
+      <% if (message.length > 0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+      <% } %>
+
       <form method="POST" action="/login">
         <div class="form-group">
           <label>Felhasználónév</label>
-          <input name="user" type="text" class="form-control" placeholder="Felhasználónév">
+          <input name="email" type="text" class="form-control" placeholder="Felhasználónév">
         </div>
         <div class="form-group">
           <label>Jelszó</label>
@@ -48,12 +53,9 @@
         </div>
         <button type="submit" class="btn btn-primary">Bejelentkezés</button>
       </form>
+      <hr>
       <p>Regisztrálni szeretne?<a href="/signup">Regisztráció</a></p>
-
-      <% if (message.length > 0) { %>
-          <div class="alert alert-danger"><%= message %></div>
-      <% } %>
-
+      <p>Vagy menjen a <a href="/">Kezdőlapra</a>.</p>
     </div>
   </body>
 </html>
