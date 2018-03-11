@@ -1,0 +1,9 @@
+{
+  "name": "Web-Gallery-dropzone",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dropzone": "~4.2.0"
+  }
+}
