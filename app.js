@@ -13,6 +13,7 @@ var multer       = require('multer');
 var upload       = multer({dest: 'uploads/'});
 var sizeOf       = require('image-size');
 var exphbs       = require('express-handlebars');
+var serveStatic  = require('serve-static');
 require('string.prototype.startswith');
 
 // configuration
@@ -44,6 +45,9 @@ app.set('view engine', '.hbs');
 
 // routes
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+// for img in index.ejs
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // launch
 app.listen(port);
