@@ -1,2 +1,10 @@
-# Web-Gallery
-This is a Web Gallery
+# Webgaléria
+
+Telepites:
+````
+npm install
+````
+Futtatása:
+````
+npm start
+````
