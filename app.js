@@ -46,7 +46,7 @@ app.set('view engine', '.hbs');
 // routes
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-// for img in index.ejs
+// for images in index.ejs
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // launch

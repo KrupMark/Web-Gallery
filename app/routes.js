@@ -22,16 +22,17 @@ module.exports = function(app, passport) {
     });
   });
 
+  // UPLOAD
   var multer = require('multer');
   var upload = multer({dest: 'uploads/'});
   var sizeOf = require('image-size');
   var exphbs = require('express-handlebars');
 
-  app.post( '/upload', upload.single( 'file' ), function( req, res, next ) {
+  app.post( '/upload', upload.single('file'), function( req, res, next ) {
 
     if ( !req.file.mimetype.startsWith( 'image/' ) ) {
       return res.status( 422 ).json( {
-        error : 'The uploaded file must be an image'
+        error : 'Kép fájlok megengedettek'
       } );
     }
 
@@ -39,7 +40,7 @@ module.exports = function(app, passport) {
 
     if ( ( dimensions.width < 100 ) || ( dimensions.height < 100 ) ) {
       return res.status( 422 ).json( {
-        error : 'The image must be at least 2000 x 2000px'
+        error : 'A képnek kisebbnek kell lennie, mint 2000 x 2000px'
       } );
     }
 

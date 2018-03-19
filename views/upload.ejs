@@ -10,11 +10,13 @@
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Dropzone -->
       <link rel="stylesheet" href="/dropzone/dist/dropzone.css">
       <meta name="csrf-token" content="XYZ123">
       <script type="text/javascript" src="/dropzone/dist/dropzone.js"></script>
-      <script type="text/javascript">
 
+      <script type="text/javascript">
         Dropzone.options.uploadWidget = {
           paramName: 'file',
           maxFilesize: 100, // MB
@@ -45,8 +47,10 @@
           }
         };
       </script>
+
   </head>
   <body>
+    <!-- fejléc -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/profile">Web-Gallery</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +74,8 @@
         </div>
       </div>
     </nav>
+    <!-- fejléc vége -->
+    <!-- oldal törzse -->
     <div class="container">
       <div class="col-sm-6">
         <div class="well">
@@ -84,5 +90,6 @@
         </div>
         </div>
       </div>
+      <!-- törzs vége -->
   </body>
 </html>
