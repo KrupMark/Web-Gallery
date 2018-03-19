@@ -14,9 +14,10 @@
       <meta name="csrf-token" content="XYZ123">
       <script type="text/javascript" src="/dropzone/dist/dropzone.js"></script>
       <script type="text/javascript">
+
         Dropzone.options.uploadWidget = {
           paramName: 'file',
-          maxFilesize: 12, // MB
+          maxFilesize: 100, // MB
           maxFiles: 5,
           dictDefaultMessage: 'Húzza ide a képet',
           headers: {
@@ -83,6 +84,5 @@
         </div>
         </div>
       </div>
-    </div>
   </body>
 </html>

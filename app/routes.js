@@ -3,7 +3,9 @@ module.exports = function(app, passport) {
 
   // HOME PAGE
   app.get('/', function(req, res) {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      pictures:fileRequest()
+    });
   });
 
   // PROFILE PAGE
@@ -16,7 +18,7 @@ module.exports = function(app, passport) {
   // UPLOAD PAGE
   app.get('/upload', isLoggedIn, function(req, res) {
     res.render('upload.ejs', {
-      user : req.user
+      user : req.user, pictures:fileRequest()
     });
   });
 
@@ -43,6 +45,16 @@ module.exports = function(app, passport) {
 
     return res.status( 200 ).send( req.file );
   });
+  function fileRequest () {
+      const uploadFolder = 'uploads/';
+      const fs = require('fs');
+      let pictures = [];
+
+      fs.readdirSync(uploadFolder).forEach(file => {
+      pictures.push(file);
+    })
+    return pictures;
+  }
 
   // LOGOUT
   app.get('/logout', function(req, res) {
