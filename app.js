@@ -49,6 +49,9 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // for images in index.ejs
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+// CSS
+app.use(express.static(__dirname + '/views/css'));
+
 // launch
 app.listen(port);
 console.log('Ezen a porton elérhető: ' + port);
