@@ -4,51 +4,17 @@
     <meta charset="UTF-8"/>
     <title>Index</title>
 
-    <!-- CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- JS, Popper.js, and jQuery -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <!-- Dropzone -->
-      <link rel="stylesheet" href="/dropzone/dist/dropzone.css">
-      <meta name="csrf-token" content="XYZ123">
-      <script type="text/javascript" src="/dropzone/dist/dropzone.js"></script>
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- CSS -->
       <link href="/style.css" rel="stylesheet" type="text/css">
-
-      <script type="text/javascript">
-        Dropzone.options.uploadWidget = {
-          paramName: 'file',
-          maxFilesize: 100, // MB
-          maxFiles: 5,
-          dictDefaultMessage: 'Húzza ide a képet',
-          headers: {
-            'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
-          },
-          acceptedFiles: 'image/*',
-          init: function() {
-            this.on('success', function( file, resp ){
-              console.log( file );
-              console.log( resp );
-            });
-            this.on('thumbnail', function(file) {
-              if ( file.width < 100 || file.height < 100 ) {
-                file.rejectDimensions();
-              } else {
-                file.acceptDimensions();
-              }
-            });
-          },
-          accept: function(file, done) {
-            file.acceptDimensions = done;
-            file.rejectDimensions = function() {
-              done('The image must be at least 2000 x 2000px')
-            };
-          }
-        };
-      </script>
 
   </head>
   <body>
@@ -78,20 +44,126 @@
     </nav>
     <!-- fejléc vége -->
     <!-- oldal törzse -->
-    <div class="container">
+    <div class="container" id="container">
       <div class="col-sm-6">
         <div class="well">
           <h3><span class="fa fa-user"></span>Kép feltöltése:</h3>
-          <div>
-            <form id="upload-widget" method="post" action="/upload" class="dropzone">
-              <div class="fallback">
-                <input name="file" type="file" />
+          <div  class="row" id="actions">
+            <!-- upload -->
+            <span class="btn btn-success fileinput-button">
+              <i class="glyphicon glyphicon-plus"></i>
+              <span>Fájl hozzáadása</span>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+              <i class="glyphicon glyphicon-upload"></i>
+              <span>Feltöltés indítása</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+              <i class="glyphicon glyphicon-ban-circle"></i>
+              <span>Feltöltés törlése</span>
+            </button>
+          </div>
+
+          <div class="col-lg-5">
+            <!-- The global file processing state -->
+            <span class="fileupload-process">
+              <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
               </div>
-            </form>
+            </span>
           </div>
         </div>
+        <div class="table table-striped files" id="previews">
+          <div id="template" class="file-row">
+            <!-- This is used as the file preview template -->
+            <div>
+              <span class="preview"><img data-dz-thumbnail /></span>
+            </div>
+            <div>
+              <p class="name" data-dz-name></p>
+              <strong class="error text-danger" data-dz-errormessage></strong>
+            </div>
+            <div>
+              <p class="size" data-dz-size></p>
+              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary start">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Feltöltés</span>
+              </button>
+              <button data-dz-remove class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Törlés</span>
+              </button>
+            </div>
+          </div>
         </div>
+        <script>
+          // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+          var previewNode = document.querySelector("#template");
+          previewNode.id = "";
+          var previewTemplate = previewNode.parentNode.innerHTML;
+          previewNode.parentNode.removeChild(previewNode);
+
+          var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+            url: "/upload", // Set the url
+            acceptedFiles: 'image/*',
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+          });
+
+          myDropzone.on("addedfile", function(file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+            console.log(0);
+            console.log( file );
+          });
+
+          // Update the total progress bar
+          myDropzone.on("totaluploadprogress", function(progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+            console.log(1);
+          });
+
+          myDropzone.on("sending", function(file, resp ) {
+            // Show the total progress bar when upload starts
+            document.querySelector("#total-progress").style.opacity = "1";
+            // And disable the start button
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+            console.log(2);
+            console.log( file );
+          });
+
+          // Hide the total progress bar when nothing's uploading anymore
+          myDropzone.on("queuecomplete", function(progress) {
+            document.querySelector("#total-progress").style.opacity = "0";
+            console.log(3);
+          });
+
+          // Setup the buttons for all transfers
+          // The "add files" button doesn't need to be setup because the config
+          // `clickable` has already been specified.
+          document.querySelector("#actions .start").onclick = function() {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+            console.log(4);
+          };
+          document.querySelector("#actions .cancel").onclick = function() {
+            myDropzone.removeAllFiles(true);
+            console.log(5);
+          };
+
+        </script>  <!-- js for the add files area /-->
       </div>
+      <!-- /upload -->
+    </div>
       <!-- törzs vége -->
   </body>
 </html>
