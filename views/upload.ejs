@@ -81,10 +81,8 @@
             </div>
             <div>
               <p class="name" data-dz-name></p>
-              <strong class="error text-danger" data-dz-errormessage></strong>
-            </div>
-            <div>
               <p class="size" data-dz-size></p>
+              <strong class="error text-danger" data-dz-errormessage></strong>
               <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
               </div>
@@ -108,9 +106,10 @@
           var previewTemplate = previewNode.parentNode.innerHTML;
           previewNode.parentNode.removeChild(previewNode);
 
-          var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-            url: "/upload", // Set the url
+          var myDropzone = new Dropzone(document.body, {
+            url: "/upload",
             acceptedFiles: 'image/*',
+            paramName: 'file',
             thumbnailWidth: 80,
             thumbnailHeight: 80,
             parallelUploads: 20,
@@ -120,7 +119,7 @@
             clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
           });
 
-          myDropzone.on("addedfile", function(file) {
+          myDropzone.on("addedfile", function(file, response) {
             // Hookup the start button
             file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
             console.log(0);
@@ -133,13 +132,13 @@
             console.log(1);
           });
 
-          myDropzone.on("sending", function(file, resp ) {
+          myDropzone.on("sending", function(file, Data) {
             // Show the total progress bar when upload starts
             document.querySelector("#total-progress").style.opacity = "1";
             // And disable the start button
             file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
             console.log(2);
-            console.log( file );
+            console.log( file.name );
           });
 
           // Hide the total progress bar when nothing's uploading anymore
@@ -160,7 +159,7 @@
             console.log(5);
           };
 
-        </script>  <!-- js for the add files area /-->
+        </script>
       </div>
       <!-- /upload -->
     </div>

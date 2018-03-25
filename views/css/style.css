@@ -1,4 +1,4 @@
-.dropzone {
+/* .dropzone {
     background: white;
     border-radius: 5px;
     border: 2px dashed rgb(0, 135, 247);
@@ -6,9 +6,9 @@
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
-/* Mimic table appearance */
+/* UPLOAD PAGE SETTINGS */
 div.table {
 display: table;
 }

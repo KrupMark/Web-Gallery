@@ -4,9 +4,6 @@ var LocalStrategy = require('passport-local').Strategy;
 // load up the user model
 var User = require('../app/models/user');
 
-// load the auth variables
-var configAuth = require('./auth'); // use this one for testing
-
 module.exports = function(passport) {
   // passport session setup
   // required for persistent login sessions
@@ -37,17 +34,17 @@ module.exports = function(passport) {
 
       // asynchronous
       process.nextTick(function() {
-        User.findOne({ 'local.userName' :  userName }, function(err, user) {
+        User.findOne({ 'local.userName' : userName }, function(err, user) {
           // if there are any errors, return the error
           if (err)
             return done(err);
 
           // if no user is found, return the message
           if (!user)
-            return done(null, false, req.flash('loginMessage', 'No user found.'));
+            return done(null, false, req.flash('loginMessage', 'Nincs ilyen felhasználó.'));
 
           if (!user.validPassword(password))
-            return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            return done(null, false, req.flash('loginMessage', 'Rossz jelszó.'));
 
           // all is well, return user
           else
@@ -65,7 +62,7 @@ module.exports = function(passport) {
     },
     function(req, userName, password, done) {
       if (userName)
-        userName = userName.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
+        userName = userName.toLowerCase(); // Use lower-case userNames to avoid case-sensitive userName matching
 
       // asynchronous
       process.nextTick(function() {
@@ -78,11 +75,11 @@ module.exports = function(passport) {
 
             // check to see if theres already a user with that email
             if (user) {
-              return done(null, false, req.flash('signupMessage', 'That userName is already taken.'));
+              return done(null, false, req.flash('signupMessage', 'Ez a felhasználónév foglalt.'));
             } else {
               // create the user
               var newUser = new User();
-              newUser.local.userName    = userName;
+              newUser.local.userName = userName;
               newUser.local.password = newUser.generateHash(password);
               newUser.save(function(err) {
                 if (err)
@@ -99,7 +96,7 @@ module.exports = function(passport) {
               if (err)
                 return done(err);
               if (user) {
-                return done(null, false, req.flash('loginMessage', 'That userName is already taken.'));
+                return done(null, false, req.flash('loginMessage', 'Ez a felhasználónév már foglalt.'));
               // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
               } else {
                 var user = req.user;
