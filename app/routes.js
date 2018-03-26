@@ -22,25 +22,30 @@ module.exports = function(app, passport) {
     });
   });
 
-  // UPLOAD
-  var multer = require('multer');
-  var upload = multer({dest: 'uploads/'});
-  var sizeOf = require('image-size');
-  var exphbs = require('express-handlebars');
+ // UPLOAD
+ var multer = require('multer');
+ var path = require('path');
+ var crypto = require('crypto');
+ var storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+     cb(null, './uploads/')
+   },
+   // CHANGE FILES NAME
+   filename: function (req, file, cb) {
+     crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+       cb(null, file.originalname)
+      })
+    }
+ });
+ var upload = multer({ storage: storage });
 
   app.post( '/upload', upload.single('file'), function( req, res, next ) {
 
     if ( !req.file.mimetype.startsWith( 'image/' ) ) {
       return res.status( 422 ).json( {
         error : 'Kép fájlok megengedettek'
-      } );
-    }
-
-    var dimensions = sizeOf( req.file.path );
-
-    if ( ( dimensions.width < 100 ) || ( dimensions.height < 100 ) ) {
-      return res.status( 422 ).json( {
-        error : 'A képnek kisebbnek kell lennie, mint 2000 x 2000px'
       } );
     }
 
@@ -84,7 +89,7 @@ module.exports = function(app, passport) {
 
   // process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
+    successRedirect : '/', // redirect to the secure profile section */profile*
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
   }));

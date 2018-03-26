@@ -122,14 +122,11 @@
           myDropzone.on("addedfile", function(file, response) {
             // Hookup the start button
             file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
-            console.log(0);
-            console.log( file );
           });
 
           // Update the total progress bar
           myDropzone.on("totaluploadprogress", function(progress) {
             document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
-            console.log(1);
           });
 
           myDropzone.on("sending", function(file, Data) {
@@ -137,14 +134,11 @@
             document.querySelector("#total-progress").style.opacity = "1";
             // And disable the start button
             file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
-            console.log(2);
-            console.log( file.name );
           });
 
           // Hide the total progress bar when nothing's uploading anymore
           myDropzone.on("queuecomplete", function(progress) {
             document.querySelector("#total-progress").style.opacity = "0";
-            console.log(3);
           });
 
           // Setup the buttons for all transfers
@@ -152,11 +146,9 @@
           // `clickable` has already been specified.
           document.querySelector("#actions .start").onclick = function() {
             myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
-            console.log(4);
           };
           document.querySelector("#actions .cancel").onclick = function() {
             myDropzone.removeAllFiles(true);
-            console.log(5);
           };
 
         </script>
