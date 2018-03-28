@@ -4,17 +4,22 @@
     <meta charset="UTF-8"/>
     <title>Index</title>
 
-    <!-- CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- JS, Popper.js, and jQuery -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!-- Dropzone -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+    <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- CSS -->
+      <link href="/style.css" rel="stylesheet" type="text/css">
 
   </head>
   <body>
     <!-- fejléc -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
       <a class="navbar-brand" href="/profile">Web-Gallery</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,8 +35,14 @@
             <li class="nav-item">
               <a class="nav-link" href="/upload">Feltöltés</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile"><%= user.local.userName %></a>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= user.local.userName %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/profile">Adatok</a>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Kijelentkezés</a>
@@ -43,29 +54,33 @@
     <!-- fejléc vége -->
     <!-- oldal törzse -->
     <div class="container">
-      <div class="col-sm-6">
-        <div class="well">
-          <h3><span class="fa fa-user"></span>Adatok</h3>
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>ID</td>
-                <td><%= user._id %></td>
-              </tr>
-              <tr>
-                <td>Felhasználónév</td>
-                <td><%= user.local.userName %></td>
-              </tr>
-              <tr>
-                <td>Jelszó</td>
-                <td><%= user.local.password %></td>
-              </tr>
-              <tr>
-                <td>E-mail cím</td>
-                <td><%= user.local.userEmail %></td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="well">
+        <div class="card border-secondary">
+          <div class="card-header">Adatok</div>
+          <div class="card-body text-secondary">
+            <p class="card-text">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Felhasználónév</td>
+                    <td><%= user.local.userName %></td>
+                  </tr>
+                  <tr>
+                    <td>ID</td>
+                    <td><%= user._id %></td>
+                  </tr>
+                  <tr>
+                    <td>E-mail cím</td>
+                    <td><%= user.local.userEmail %></td>
+                  </tr>
+                  <tr>
+                    <td>Jelszó</td>
+                    <td><%= user.local.password %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </p>
+          </div>
         </div>
       </div>
     </div>
