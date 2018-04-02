@@ -8,6 +8,14 @@ module.exports = function(app, passport) {
     });
   });
 
+  // LOGGED PAGE
+  app.get('/logged', isLoggedIn, function(req, res) {
+    res.render('logged.ejs', {
+      user : req.user,
+      pictures:fileRequest()
+    });
+  });
+
   // PROFILE PAGE
   app.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile.ejs', {
@@ -18,7 +26,8 @@ module.exports = function(app, passport) {
   // UPLOAD PAGE
   app.get('/upload', isLoggedIn, function(req, res) {
     res.render('upload.ejs', {
-      user : req.user, pictures:fileRequest()
+      user : req.user,
+      pictures:fileRequest()
     });
   });
 
@@ -76,7 +85,7 @@ module.exports = function(app, passport) {
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/profile', // redirect to the secure profile section
+    successRedirect : '/logged', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
   }));

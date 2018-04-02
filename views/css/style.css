@@ -1,7 +1,10 @@
 body {
   background-color: #f1f1f1;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  min-height: 100vh;
+  font: normal 16px sans-serif;
 }
-
+/* Registration */
 input:invalid+span:after {
   content: '✖';
   padding-left: 5px;
@@ -31,6 +34,7 @@ div.table .file-row:nth-child(odd) {
 background: #f9f9f9;
 }
 
+/* File upload */
 #actions {
 margin: 2em 0;
 }
@@ -53,6 +57,55 @@ display: none;
 #previews .file-row.dz-success .cancel {
 display: none;
 }
+
 #previews .file-row.dz-success .delete {
 display: block;
+}
+
+/* Gallery */
+.tz-gallery {
+    padding: 40px;
+}
+
+.tz-gallery .thumbnail {
+    padding: 0;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: none;
+    transition: 0.15s ease-in-out;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
+}
+
+.tz-gallery .thumbnail:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.tz-gallery .lightbox img {
+    border-radius: 4px 4px 0 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.tz-gallery .caption{
+    padding: 26px 30px;
+    text-align: center;
+}
+
+.tz-gallery .caption h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.tz-gallery .caption p {
+    font-size: 12px;
+    color: #7b7d7d;
+    margin: 0;
+}
+
+.baguetteBox-button {
+    background-color: transparent !important;
 }

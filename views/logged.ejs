@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Index</title>
 
     <!-- JS, Popper.js, and jQuery -->
@@ -13,6 +15,10 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Bootstrap JS -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Font -->
+      <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <!-- BaguetteBox -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
     <!-- CSS -->
       <link href="/style.css" rel="stylesheet" type="text/css">
 
@@ -53,37 +59,32 @@
     </nav>
     <!-- fejléc vége -->
     <!-- oldal törzse -->
-    <div class="container">
-      <div class="well">
-        <div class="card border-secondary">
-          <div class="card-header">Adatok</div>
-          <div class="card-body text-secondary">
-            <p class="card-text">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>Felhasználónév</td>
-                    <td><%= user.local.userName %></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td><%= user._id %></td>
-                  </tr>
-                  <tr>
-                    <td>E-mail cím</td>
-                    <td><%= user.local.userEmail %></td>
-                  </tr>
-                  <tr>
-                    <td>Jelszó</td>
-                    <td><%= user.local.password %></td>
-                  </tr>
-                </tbody>
-              </table>
-            </p>
-          </div>
-        </div>
+    <div class="tz-gallery">
+      <div class="row">
+
+        <!-- megjeleníti az uploads-ban lévő képeket -->
+        <ul>
+          <% pictures.forEach(function(img,index){ %>
+            <div class="col-lg-2 col-md-3 col-xs-5" style="display:inline-block">
+              <div class="thumbnail">
+                <a class="lightbox" href="uploads/<%= pictures[index] %>">
+                  <img src="uploads/<%= pictures[index] %>" alt="" class="img-fluid rounded border border-light">
+                </a>
+                <div class="caption">
+                  <h3>Thumbnail label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </ul>
+
       </div>
     </div>
     <!-- törzs vége -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script>
   </body>
 </html>
