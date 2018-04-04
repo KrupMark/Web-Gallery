@@ -54,7 +54,7 @@ module.exports = function(app, passport) {
 
     if ( !req.file.mimetype.startsWith( 'image/' ) ) {
       return res.status( 422 ).json( {
-        error : 'Kép fájlok megengedettek'
+        error : 'Kép fájlok megengedettek!'
       } );
     }
 

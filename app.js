@@ -1,25 +1,28 @@
-var express      = require('express');
-var app          = express();
-var mongoose     = require('mongoose');
-var passport     = require('passport');
-var flash        = require('connect-flash');
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-var configDB     = require('./config/database.js');
-var port         = process.env.PORT || 3000;
-var multer       = require('multer');
-var upload       = multer({dest: 'uploads/'});
-var sizeOf       = require('image-size');
-var exphbs       = require('express-handlebars');
-var serveStatic  = require('serve-static');
+var express       = require('express');
+var app           = express();
+var mongoose      = require('mongoose');
+var passport      = require('passport');
+var flash         = require('connect-flash');
+var morgan        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var session       = require('express-session');
+var configUserDB  = require('./config/users.js');
+var configImageDB = require('./config/images.js')
+var port          = process.env.PORT || 3000;
+var multer        = require('multer');
+var upload        = multer({dest: 'uploads/'});
+var sizeOf        = require('image-size');
+var exphbs        = require('express-handlebars');
+var serveStatic   = require('serve-static');
 require('string.prototype.startswith');
 
 // configuration
-mongoose.connect(configDB.url); // connect to our database
-
+mongoose.connect(configUserDB.url); // connect to User database
 require('./config/passport')(passport); // pass passport for configuration
+
+mongoose.connect(configImageDB.url); // connect to Image database
+require('./config/imagePassport')(passport); // pass imagePassport for configuration
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
