@@ -1,10 +1,11 @@
-# Webgaléria
+# Webgallery
+school assignment, under development
 
-Telepites:
+Install:
 ````
 npm install
 ````
-Futtatása:
+Run:
 ````
 npm start
 ````
