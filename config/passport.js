@@ -58,11 +58,13 @@ module.exports = function(passport) {
       // by default, local strategy uses username and password, we will override with email
       usernameField : 'userName',
       passwordField : 'password',
+      confpasswordField : 'confpassword',
       userEmailField : 'userEmail',
       passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, userName, password, done) {
       var userEmail = req.body.userEmail;
+      var confpassword = req.body.confpassword
       if (userName)
         userName = userName.toLowerCase(); // Use lower-case userNames to avoid case-sensitive userName matching
 
@@ -106,6 +108,7 @@ module.exports = function(passport) {
                 user.local.userName = userName;
                 user.local.password = user.generateHash(password);
                 newUser.local.userEmail = userEmail;
+                
                 user.save(function (err) {
                   if (err)
                     return done(err);

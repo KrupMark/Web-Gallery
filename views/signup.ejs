@@ -44,7 +44,7 @@
     </nav>
     <!-- fejléc vége -->
     <!-- oldal törzse -->
-    <div class="container">
+    <div class="container mt-4">
 
       <!-- hibaértesítés -->
       <% if (message.length > 0) { %>
@@ -53,11 +53,6 @@
 
       <form method="POST" action="/signup">
         <div class="form-group">
-
-          <!-- ALERT -->
-
-          <!-- ALERT END -->
-
           <label>Felhasználónév</label>
           <input name="userName" type="text" class="form-control" placeholder="Felhasználónév" required><span class="validity"></span>
         </div>

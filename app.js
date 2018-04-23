@@ -8,7 +8,7 @@ var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var session       = require('express-session');
 var configUserDB  = require('./config/users.js');
-var configImageDB = require('./config/images.js')
+// var configImageDB = require('./config/images.js');
 var port          = process.env.PORT || 3000;
 var multer        = require('multer');
 var upload        = multer({dest: 'uploads/'});
@@ -21,8 +21,7 @@ require('string.prototype.startswith');
 mongoose.connect(configUserDB.url); // connect to User database
 require('./config/passport')(passport); // pass passport for configuration
 
-mongoose.connect(configImageDB.url); // connect to Image database
-require('./config/imagePassport')(passport); // pass imagePassport for configuration
+// require('./config/imagePassport')(passport); // pass imagePassport for configuration
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
