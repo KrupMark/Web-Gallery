@@ -108,7 +108,7 @@ module.exports = function(passport) {
                 user.local.userName = userName;
                 user.local.password = user.generateHash(password);
                 newUser.local.userEmail = userEmail;
-                
+
                 user.save(function (err) {
                   if (err)
                     return done(err);
@@ -122,4 +122,7 @@ module.exports = function(passport) {
           }
       });
     }));
+
+    var Image = require('../app/models/image');
+
 };
